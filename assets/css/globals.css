@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+:root {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 12px;
+}
+
+* {
+  @apply outline-none;
+}
+
+body {
+  @apply bg-slate-50 text-slate-950 antialiased dark:bg-slate-950 dark:text-white;
+}
+
+.bg-section {
+  background-size: cover;
+  background: #f5f5ff url("/img/section-bg-white.png") bottom center no-repeat;
+}
+
+.dark .bg-section {
+  background: url("/img/section-bg-dark.png") bottom center no-repeat;
+}
+
+.gradient-section {
+  background: linear-gradient(#fff, #fcfafb);
+}
+
+.dark .gradient-section {
+  background: linear-gradient(#020617, #020a2c);
+}
