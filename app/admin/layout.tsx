@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 
 import Providers from "@/providers";
 import { Footer, Header } from "@/components";
-import { getCurrentUser } from "@/libs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +18,12 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
   return (
     <html suppressHydrationWarning lang="de" className={inter.className}>
       <link rel="icon" href="/favicon.png" />
       <body>
         <Providers>
-          <Header currentUser={currentUser} />
+          <Header />
           <main className="mt-40">{children}</main>
           <Footer />
         </Providers>
