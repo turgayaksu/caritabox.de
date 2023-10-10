@@ -2,8 +2,10 @@ import { BiPhoneCall } from "react-icons/bi";
 
 import { Logo, Menu, ThemeSwitcher } from "@/components";
 import Link from "next/link";
+import { getCurrentUser } from "@/libs";
 
-const Header = () => {
+const Header = async () => {
+  const currentUser = await getCurrentUser();
   return (
     <header className="fixed top-0 z-[999] w-full bg-white/70 shadow-sm backdrop-blur-sm dark:bg-slate-900/80">
       <div className="bg-primary-500 px-4 lg:px-0">
@@ -13,6 +15,7 @@ const Header = () => {
             <Link href={`tel:${process.env.SERVICE_PHONE}`}>
               Service Telefon: {`${process.env.SERVICE_PHONE}`}
             </Link>
+            {currentUser?.name}
           </div>
           <ThemeSwitcher />
         </div>
@@ -22,7 +25,7 @@ const Header = () => {
           <Logo />
         </span>
         <span>
-          <Menu />
+          <Menu currentUser={currentUser} />
         </span>
       </div>
     </header>

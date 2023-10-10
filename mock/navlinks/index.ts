@@ -19,10 +19,6 @@ const navLinks = [
     name: "Blog",
     href: "/blog",
   },
-  {
-    name: "Login",
-    href: "/auth",
-  },
 ];
 
 export default navLinks;

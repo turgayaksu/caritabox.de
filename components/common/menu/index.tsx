@@ -1,15 +1,21 @@
 "use client";
 
 import classNames from "classnames";
-import Link from "next/link";
+import { signIn, signOut } from "next-auth/react";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { HiMenuAlt3 } from "react-icons/hi";
 
 import { useMenu } from "@/hooks";
 import { navLinks } from "@/mock";
+import { Avatar, NavLink } from "@/components";
+import { SafeUser } from "@/types";
 
-export default function Menu() {
+type MenuProps = {
+  currentUser?: SafeUser | null;
+};
+
+export default function Menu({ currentUser }: MenuProps) {
   const menu = useMenu();
   const pathname = usePathname();
 
@@ -17,14 +23,16 @@ export default function Menu() {
     menu.onClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
-
   return (
     <>
-      <HiMenuAlt3
-        onClick={menu.onToggle}
-        size={40}
-        className="block cursor-pointer rounded bg-slate-100 px-1.5 dark:bg-slate-800 lg:hidden"
-      />
+      <span className="flex flex-row items-center justify-end gap-3">
+        {currentUser && <Avatar fullname={currentUser.name} />}
+        <HiMenuAlt3
+          onClick={menu.onToggle}
+          size={40}
+          className="block cursor-pointer rounded bg-slate-100 px-1.5 dark:bg-slate-800 lg:hidden"
+        />
+      </span>
       <nav
         id="main-menu"
         className={classNames(
@@ -36,25 +44,18 @@ export default function Menu() {
           },
         )}
       >
+        {currentUser && currentUser.role === "ADMIN" && (
+          <NavLink name="Admin Panel" href="/dashboard" />
+        )}
         {navLinks.map((link, key) => {
-          const isActive = pathname === link.href;
-          return (
-            <Link
-              className={classNames(
-                "border-b hover:text-primary-500 dark:hover:text-primary-300",
-                {
-                  "border-primary-500 text-primary-500 dark:text-primary-400":
-                    isActive,
-                  "border-none text-slate-800 dark:text-primary-200": !isActive,
-                },
-              )}
-              href={link.href}
-              key={key}
-            >
-              {link.name}
-            </Link>
-          );
+          return <NavLink key={key} name={link.name} href={link.href} />;
         })}
+        {currentUser && <NavLink name="Mein Konto" href="/dashboard" />}
+        {!currentUser ? (
+          <NavLink name="Anmeldung" onClick={signIn} />
+        ) : (
+          <NavLink name="Abmeldung" onClick={signOut} />
+        )}
       </nav>
     </>
   );

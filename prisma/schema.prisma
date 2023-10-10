@@ -40,13 +40,16 @@ model Session {
 model User {
   id            String    @id @default(cuid()) @map("_id")
   name          String?
-  email         String    @unique
+  email         String?   @unique
   emailVerified DateTime?
+  password      String?
   image         String?
-  password      String
+  role          UserRole  @default(USER)
   accounts      Account[]
   sessions      Session[]
   Order         Order[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model VerificationToken {
@@ -60,18 +63,89 @@ model VerificationToken {
 model Products {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
+  image       String
   description String?
   price       Int
+  unit        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  Order       Order?   @relation(fields: [orderId], references: [id])
-  orderId     String?  @db.ObjectId
+}
+
+model Insured {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  gender          Gender
+  name            String
+  surname         String
+  street          String
+  houseNumber     Int
+  postCode        String
+  location        String
+  birthDate       DateTime
+  phone           String
+  mail            String
+  insuranceNumber String
+  insurance       Insurance @relation(fields: [insuranceId], references: [id])
+  level           Level
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  insuranceId     String    @db.ObjectId
+  Order           Order[]
+}
+
+model Carer {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  gender      Gender
+  name        String
+  surname     String
+  street      String
+  houseNumber Int
+  postCode    String
+  phone       String
+  mail        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Order       Order[]
+}
+
+model Insurance {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  Insured     Insured[]
 }
 
 model Order {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  user      User       @relation(fields: [userId], references: [id])
-  producsts Products[]
-  address   String
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id])
   userId    String
+  insured   Insured @relation(fields: [insuredId], references: [id])
+  carer     Carer   @relation(fields: [carerId], references: [id])
+  address   Address
+  signature String
+  insuredId String  @db.ObjectId
+  carerId   String  @db.ObjectId
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum Gender {
+  Frau
+  Herr
+  KeineAngabe
+}
+
+enum Level {
+  Pflegegrad1
+  Pflegegrad2
+  Pflegegrad3
+  Pflegegrad4
+  Pflegegrad5
+}
+
+enum Address {
+  Carer
+  Insured
 }
