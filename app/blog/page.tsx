@@ -11,7 +11,9 @@ const BlogPage = () => {
 
       <section className="container relative mx-auto px-4 lg:px-0">
         <div className="my-16 flex flex-col items-center space-y-12 text-center">
-          <p className="text-3xl font-semibold text-red-500">coming soon...</p>
+          <p className="text-3xl font-semibold text-red-500">
+            demnächst erhältlich...
+          </p>
         </div>
       </section>
     </>
