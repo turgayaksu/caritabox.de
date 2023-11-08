@@ -8,8 +8,8 @@ import { HiMenuAlt3 } from "react-icons/hi";
 
 import { useMenu } from "@/hooks";
 import { navLinks } from "@/mock";
-import { Avatar, NavLink } from "@/components";
 import { SafeUser } from "@/types";
+import { Avatar, NavLink } from "@/components/caritabox";
 
 type MenuProps = {
   currentUser?: SafeUser | null;
@@ -25,14 +25,6 @@ export default function Menu({ currentUser }: MenuProps) {
   }, [pathname]);
   return (
     <>
-      <span className="flex flex-row items-center justify-end gap-3">
-        {currentUser && <Avatar fullname={currentUser.name} />}
-        <HiMenuAlt3
-          onClick={menu.onToggle}
-          size={40}
-          className="block cursor-pointer rounded bg-slate-100 px-1.5 dark:bg-slate-800 lg:hidden"
-        />
-      </span>
       <nav
         id="main-menu"
         className={classNames(
@@ -44,19 +36,31 @@ export default function Menu({ currentUser }: MenuProps) {
           },
         )}
       >
-        {currentUser && currentUser.role === "ADMIN" && (
-          <NavLink name="Admin Panel" href="/dashboard" />
+        {currentUser?.role === "ADMIN" && (
+          <NavLink name="Admin" href="/admin" />
         )}
         {navLinks.map((link, key) => {
           return <NavLink key={key} name={link.name} href={link.href} />;
         })}
-        {currentUser && <NavLink name="Mein Konto" href="/dashboard" />}
+        {currentUser?.role === "USER" && (
+          <NavLink name="Kundenkonto" href="/account" />
+        )}
         {!currentUser ? (
-          <NavLink name="Anmeldung" onClick={signIn} />
+          // <NavLink name="Anmeldung" onClick={signIn} />
+          <NavLink name="Login" onClick={signIn} />
         ) : (
-          <NavLink name="Abmeldung" onClick={signOut} />
+          // <NavLink name="Abmeldung" onClick={signOut} />
+          <NavLink name="Logout" onClick={signOut} />
         )}
       </nav>
+      {currentUser && <Avatar fullname={currentUser?.name} />}
+      <div className="flex flex-row items-center justify-end gap-3">
+        <HiMenuAlt3
+          onClick={menu.onToggle}
+          size={40}
+          className="block cursor-pointer rounded bg-slate-100 px-1.5 dark:bg-slate-800 lg:hidden"
+        />
+      </div>
     </>
   );
 }

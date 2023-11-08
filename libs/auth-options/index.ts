@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { toast } from "react-toastify";
 import { compare } from "bcryptjs";
 
@@ -64,12 +65,15 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, trigger, session, user }) {
       if (user) token.role = user.role;
+      if (trigger === "update" && session?.name) token.name = session.name;
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token, trigger, newSession }) {
       if (session?.user) session.user.role = token.role;
+      if (trigger === "update" && newSession?.name)
+        session.user = newSession.user;
       return session;
     },
   },

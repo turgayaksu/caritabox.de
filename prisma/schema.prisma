@@ -11,8 +11,8 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid()) @map("_id")
-  userId            String
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
   type              String
   provider          String
   providerAccountId String
@@ -30,15 +30,15 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid()) @map("_id")
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            String    @id @default(cuid()) @map("_id")
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   email         String?   @unique
   emailVerified DateTime?
@@ -61,17 +61,50 @@ model VerificationToken {
 }
 
 model Products {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  image       String
-  description String?
-  price       Int
-  unit        String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String                   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String?
+  imageUrl     String?
+  price        Float?
+  unit         String?
+  optionGroups ProductOptionsOnGroups[]
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @updatedAt
+}
+
+model OptionGroups {
+  id       String                   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  options  OptionOnGroups[]
+  products ProductOptionsOnGroups[]
+}
+
+model Options {
+  id           String           @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  optionGroups OptionOnGroups[]
+}
+
+model OptionOnGroups {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  option         Options      @relation(fields: [optionsId], references: [id])
+  optionGroup    OptionGroups @relation(fields: [optionGroupsId], references: [id])
+  optionsId      String       @db.ObjectId
+  optionGroupsId String       @db.ObjectId
+  createdAt      DateTime     @default(now())
+}
+
+model ProductOptionsOnGroups {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  product        Products     @relation(fields: [productsId], references: [id])
+  optionGroup    OptionGroups @relation(fields: [optionGroupsId], references: [id])
+  createdAt      DateTime     @default(now())
+  productsId     String       @db.ObjectId
+  optionGroupsId String       @db.ObjectId
 }
 
 model Insured {
+  // id              String    @id @default(auto()) @map("_id") @db.ObjectId
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   gender          Gender
   name            String
@@ -93,6 +126,7 @@ model Insured {
 }
 
 model Carer {
+  // id          String   @id @default(auto()) @map("_id") @db.ObjectId
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   gender      Gender
   name        String
@@ -104,10 +138,11 @@ model Carer {
   mail        String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  Order       Order[]
+  order       Order[]
 }
 
 model Insurance {
+  // id          String    @id @default(auto()) @map("_id") @db.ObjectId
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String?
@@ -115,15 +150,16 @@ model Insurance {
 }
 
 model Order {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String
-  insured   Insured @relation(fields: [insuredId], references: [id])
-  carer     Carer   @relation(fields: [carerId], references: [id])
-  address   Address
+  // id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @db.ObjectId
+  insured   Insured   @relation(fields: [insuredId], references: [id])
+  carer     Carer     @relation(fields: [carerId], references: [id])
+  address   Address[]
   signature String
-  insuredId String  @db.ObjectId
-  carerId   String  @db.ObjectId
+  insuredId String    @db.ObjectId
+  carerId   String    @db.ObjectId
 }
 
 enum UserRole {

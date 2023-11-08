@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 
-import { Button } from "@/components";
+import { Button } from "@/components/caritabox";
 import RegisterForm from "./form";
 
 const RegisterPage = () => {

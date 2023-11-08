@@ -1,7 +1,5 @@
-import React from "react";
-
 const Beratungsgesprach = () => {
-  return <div>Beratungsgesprach</div>;
+  return <></>;
 };
 
 export default Beratungsgesprach;

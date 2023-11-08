@@ -4,7 +4,7 @@ import Image from "next/image";
 type PageHeaderProps = {
   subtitle?: string;
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   textSecond?: string;
   linkText?: string;
   linkHref?: string;
@@ -30,7 +30,7 @@ const PageHeader = ({
         {linkText && linkHref && (
           <Link
             href={linkHref}
-            className="rounded-md  bg-primary-500 px-8 py-4  text-sm text-white"
+            className="bg-caritabox-500  rounded-md px-8 py-4  text-sm text-white"
           >
             {linkText}
           </Link>

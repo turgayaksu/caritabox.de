@@ -12,6 +12,10 @@ const navLinks = [
     href: "/pflegehilfsmittel",
   },
   {
+    name: "Beantragen",
+    href: "/bestellen",
+  },
+  {
     name: "Hilfe",
     href: "/hilfe",
   },

@@ -7,9 +7,9 @@ const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="mr-4 flex rounded-md bg-primary-400 p-1 dark:bg-primary-600 sm:mr-0">
+    <div className="bg-caritabox-400 dark:bg-caritabox-600 mr-4 flex rounded-md p-1 sm:mr-0">
       <button
-        className="rounded-md bg-primary-300 p-1 dark:bg-primary-600"
+        className="bg-caritabox-300 dark:bg-caritabox-600 rounded-md p-1"
         type="button"
         title="Light"
         onClick={() => setTheme("light")}
@@ -17,7 +17,7 @@ const ThemeSwitcher = () => {
         <PiSunLight size={20} />
       </button>
       <button
-        className="rounded-md p-1 dark:bg-primary-700/80"
+        className="dark:bg-caritabox-700/80 rounded-md p-1"
         type="button"
         title="Dark"
         onClick={() => setTheme("dark")}

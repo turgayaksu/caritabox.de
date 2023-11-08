@@ -45,7 +45,7 @@ const GradientSection = ({
           {linkHref && linkText && (
             <Link
               href={linkHref}
-              className="mt-14 inline-block rounded-md bg-primary-500 py-3 text-center text-white"
+              className="bg-caritabox-500 mt-14 inline-block rounded-md py-3 text-center text-white"
             >
               {linkText}
             </Link>

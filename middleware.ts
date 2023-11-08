@@ -11,7 +11,7 @@ export default withAuth(
     }
 
     if (
-      request.nextUrl.pathname.startsWith("/customer") &&
+      request.nextUrl.pathname.startsWith("/account") &&
       request.nextauth.token?.role !== "ADMIN" &&
       request.nextauth.token?.role !== "USER"
     ) {
@@ -20,23 +20,11 @@ export default withAuth(
   },
   {
     callbacks: {
-      //authorized: ({ token }) => token?.role === "ADMIN",
       authorized: ({ token }) => !!token,
     },
   },
 );
 
-// export default withAuth({
-//   callbacks: {
-//     authorized({ req, token }) {
-//       if (req.nextUrl.pathname === "/admin") {
-//         return token?.role === 'ADMIN';
-//       }
-//       return !!token;
-//     },
-//   },
-// });
-
 export const config = {
-  matcher: ["/customer/:path*", "/admin/:path*"],
+  matcher: ["/account/:path*", "/admin/:path*"],
 };

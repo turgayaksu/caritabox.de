@@ -9,7 +9,6 @@ export async function getSession() {
 export default async function getCurrentUser() {
   try {
     const session = await getSession();
-    // eslint-disable-next-line react-hooks/rules-of-hooks
 
     if (!session?.user.email) {
       return null;
@@ -22,7 +21,18 @@ export default async function getCurrentUser() {
     });
 
     if (!currentUser) {
-      return null;
+      const newUser = await prisma.user.create({
+        data: {
+          email: session.user.email,
+          name: session.user.name,
+        },
+      });
+      return {
+        ...newUser,
+        createdAt: newUser.createdAt.toISOString(),
+        updatedAt: newUser.updatedAt.toISOString(),
+        emailVerified: newUser.emailVerified?.toISOString() || null,
+      };
     }
 
     return {

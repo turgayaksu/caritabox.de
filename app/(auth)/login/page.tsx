@@ -4,13 +4,12 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 
-import { Button } from "@/components";
+import { Button } from "@/components/caritabox";
 import LoginForm from "./form";
 import Link from "next/link";
 
 const LoginPage = () => {
   const router = useRouter();
-
   return (
     <div className="flex h-full min-h-[800px] w-screen items-center justify-center">
       <div className="w-4/5 rounded-lg border border-slate-200/70 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-900 md:w-4/6 lg:w-3/6 xl:w-2/5">

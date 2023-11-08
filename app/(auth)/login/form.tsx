@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 
-import { Button, Input } from "@/components";
+import { Button, Input } from "@/components/caritabox";
 import { userLogin } from "@/validations";
 
 const LoginForm = () => {

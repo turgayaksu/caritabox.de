@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 import { useRouter } from "next/navigation";
 
-import { Button, Input } from "@/components";
+import { Button, Input } from "@/components/caritabox";
 import { userRegister } from "@/validations";
 
 const RegisterForm = () => {

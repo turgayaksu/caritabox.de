@@ -1,4 +1,4 @@
-import { IconCard } from "@/components";
+import { IconCard } from "@/components/caritabox";
 import { IconType } from "react-icons";
 
 type IconCardProps = {

@@ -14,16 +14,16 @@ const Faq = ({ question, answer, isOpen = false }: FaqProps) => {
   return (
     <Disclosure
       as="div"
-      className="mb-6 rounded-lg bg-primary-100/70 dark:bg-slate-700"
+      className="bg-caritabox-100/70 mb-6 rounded-lg dark:bg-slate-700"
       defaultOpen={isOpen}
     >
       {({ open }) => (
         <>
-          <Disclosure.Button className="flex w-full justify-between rounded-lg bg-primary-200/80 px-4 py-2 text-left font-semibold text-primary-600 hover:bg-primary-300 hover:text-primary-700 focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-75 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-900">
+          <Disclosure.Button className="bg-caritabox-200/80 text-caritabox-600 hover:bg-caritabox-300 hover:text-caritabox-700 focus-visible:ring-caritabox-500 flex w-full justify-between rounded-lg px-4 py-2 text-left font-semibold focus:outline-none focus-visible:ring focus-visible:ring-opacity-75 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-900">
             <span>{question}</span>
             <BiChevronDown
               className={classNames(
-                "h-5 w-5 text-primary-500 dark:text-slate-300",
+                "text-caritabox-500 h-5 w-5 dark:text-slate-300",
                 {
                   "rotate-180 transform": open,
                 },

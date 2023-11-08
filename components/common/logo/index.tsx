@@ -6,7 +6,7 @@ export default function Logo() {
   return (
     <Link href="/" className="flex items-center justify-center">
       <svg
-        className="mr-6 h-10 w-48 fill-primary-500"
+        className="fill-caritabox-500 mr-6 h-10 w-48"
         viewBox="0 0 240 50"
         strokeLinecap="round"
         strokeLinejoin="round"

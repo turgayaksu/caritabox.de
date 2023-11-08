@@ -25,9 +25,9 @@ const Testimonials = () => {
                 </p>
                 <BiSolidQuoteAltRight
                   size={64}
-                  className="absolute -top-7 left-1/2 -translate-x-1/2 text-primary-500"
+                  className="text-caritabox-500 absolute -top-7 left-1/2 -translate-x-1/2"
                 />
-                <div className="absolute bottom-0 left-0 h-2 w-full rounded-b-lg bg-gradient-to-r from-cyan-400 to-primary-500"></div>
+                <div className="to-caritabox-500 absolute bottom-0 left-0 h-2 w-full rounded-b-lg bg-gradient-to-r from-cyan-400"></div>
               </div>
             );
           })}
