@@ -8,3 +8,34 @@ export type SafeUser = Omit<
   updatedAt: string;
   emailVerified: string | null;
 };
+
+export type ProductProps = {
+  id: string;
+  title: string;
+  description?: string;
+  imageUrl: string;
+  price: number;
+  qty: number;
+  unit: string;
+  productCartId: string;
+  optionGroups: {
+    id: string;
+    optionGroup: {
+      id: string;
+      name: string;
+      options: {
+        id: string;
+        option: {
+          id: string;
+          name: string;
+        };
+      }[];
+    };
+  }[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type ProductsProps = {
+  product: ProductProps[];
+};

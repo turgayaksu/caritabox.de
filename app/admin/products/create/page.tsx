@@ -32,6 +32,7 @@ const productSchema = z.object({
   description: z.string().min(1, { message: "Description is required" }),
   imageUrl: z.string().min(1, { message: "Image is required" }),
   price: z.string().min(1, { message: "Price is required" }),
+  qty: z.string().min(1, { message: "Quantity is required" }),
   unit: z.string().min(1, { message: "Unit is required" }),
   optionGroups: z.array(z.string()).nullable(),
 });
@@ -56,6 +57,7 @@ const ProductCreate = () => {
       description: "",
       imageUrl: "",
       price: "",
+      qty: "",
       unit: "",
       optionGroups: [],
     },
@@ -168,6 +170,30 @@ const ProductCreate = () => {
               />
               <FormField
                 control={form.control}
+                name="qty"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Product Quantity</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        step="0.01"
+                        pattern="^\d+(?:\.\d{1,2})?$"
+                        disabled={isSubmitting}
+                        placeholder="e.g. 19,90"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Required to calculate the quantity of the product in the
+                      basket!
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="unit"
                 render={({ field }) => (
                   <FormItem>
@@ -175,7 +201,7 @@ const ProductCreate = () => {
                     <FormControl>
                       <Input
                         disabled={isSubmitting}
-                        placeholder="e.g. 10 Unit, 25 Stück etc"
+                        placeholder="e.g. Unit, Stück etc"
                         {...field}
                       />
                     </FormControl>

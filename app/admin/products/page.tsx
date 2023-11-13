@@ -37,7 +37,7 @@ const AdminProducsPage = async () => {
                     Price
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Unit
+                    Qty & Unit
                   </th>
                   <th scope="col" className="px-6 py-3">
                     <span className="sr-only">Edit</span>
@@ -67,7 +67,9 @@ const AdminProducsPage = async () => {
                           />
                         </td>
                         <td className="px-6 py-4">€{product.price}</td>
-                        <td className="px-6 py-4">{product.unit}</td>
+                        <td className="px-6 py-4">
+                          {product.qty + " " + product.unit}
+                        </td>
                         <td className="px-6 py-4 text-right">
                           <ProductButtons productId={product.id} />
                         </td>

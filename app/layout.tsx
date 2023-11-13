@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 
 import Providers from "@/providers";
 import { Footer, Header } from "@/components/common";
+import axios from "axios";
+import { useProductStore } from "@/hooks";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,7 +14,6 @@ export const metadata: Metadata = {
   description:
     "Kostenlose Pflegehilfsmittel: Für Personen mit einem Pflegegrad im Wert von 40 pro Monat Einmal beantragen, immer erhalten",
 };
-
 export default function RootLayout({
   children,
 }: {

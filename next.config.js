@@ -5,7 +5,10 @@ const nextConfig = {
     serverComponentsExternalPackages: ["bcryptjs"],
   },
   images: {
-    domains: ["lh3.googleusercontent.com", "utfs.io"],
+    remotePatterns: [
+      { hostname: "lh3.googleusercontent.com" },
+      { hostname: "utfs.io" },
+    ],
     deviceSizes: [640, 750, 1080, 1536],
     imageSizes: [16, 32, 48, 128],
   },

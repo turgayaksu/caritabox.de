@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     const currentUser = await getCurrentUser();
     const userId = currentUser?.id;
 
-    const { title, description, imageUrl, price, unit, optionGroups } =
+    const { title, description, imageUrl, price, qty, unit, optionGroups } =
       await req.json();
 
     if (!userId) {
@@ -19,6 +19,7 @@ export async function POST(req: Request) {
         description: description,
         imageUrl: imageUrl,
         price: Number(price),
+        qty: Number(qty),
         unit: unit,
         optionGroups: {
           create: optionGroups.map((id: string) => ({
@@ -31,6 +32,32 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(product);
+  } catch (error) {
+    console.log("[PRODUCTS]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+export async function GET(req: Request) {
+  try {
+    const products = await prisma.products.findMany({
+      include: {
+        optionGroups: {
+          include: {
+            optionGroup: {
+              include: {
+                options: {
+                  include: {
+                    option: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    return NextResponse.json(products);
   } catch (error) {
     console.log("[PRODUCTS]", error);
     return new NextResponse("Internal Error", { status: 500 });
